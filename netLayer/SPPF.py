@@ -2,6 +2,7 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as F
 from ConvModule import ConvModule
+import warnings
 
 
 class SPPF(nn.Module):
@@ -16,6 +17,9 @@ class SPPF(nn.Module):
         :type kernel_size: int
         """
         super().__init__()
+        if (out_channel % 2 == 1):
+            warnings.warn(
+                f"{self.__class__.__name__}，hidden_channel=in_channel//2，in_channel={out_channel}，可能产生舍入误差")
         hidden_channel = in_channel // 2
         self.conv_1 = ConvModule(
             in_channel=in_channel,
