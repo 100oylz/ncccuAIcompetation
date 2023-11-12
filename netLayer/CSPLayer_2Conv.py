@@ -1,5 +1,5 @@
 from ConvModule import ConvModule
-from DarkNetBottleneck import DaeknetBottleneck
+from DarknetBottleneck import DaeknetBottleneck
 import torch.nn as nn
 import torch
 import warnings

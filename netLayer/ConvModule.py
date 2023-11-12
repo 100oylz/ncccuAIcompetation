@@ -4,7 +4,7 @@ import torch.nn.functional as F
 
 
 class ConvModule(nn.Module):
-    def __init__(self, kernel_size: int, stride: int, padding: int, in_channel: int, out_channel: int):
+    def __init__(self, in_channel: int, out_channel: int, kernel_size: int, stride: int, padding: int):
         """
         定义了ConvModule
         :param kernel_size: 卷积核大小
