@@ -21,3 +21,9 @@ mAP在m处出现明显的拐点，使用再大的模型提升不大，速度在s
 初始化了netLayer中的ConvModule，SPPF，DarknetBottle，CspLayer_2Conv等基础模型
 
 ==这些模型大部分都有整除的过程，可能会出现非偶数时的舍入误差，我在旁边加了warning，如果模型运行没问题，为了提高运行效率，将删除这些warning==
+
+## 2023年11月20日commit
+
+### Neck forward函数中变量名称
+
+![image-20231112121418445](./assets/image-20231112121418445.png)
