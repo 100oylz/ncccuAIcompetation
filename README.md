@@ -24,6 +24,10 @@ mAP在m处出现明显的拐点，使用再大的模型提升不大，速度在s
 
 ## 2023年11月20日commit
 
+### BackBone forward函数变量名称
+
+![image-20231112122531128](./assets/image-20231112122531128.png)
+
 ### Neck forward函数中变量名称
 
 ![image-20231112121418445](./assets/image-20231112121418445.png)
