@@ -24,6 +24,8 @@ mAP在m处出现明显的拐点，使用再大的模型提升不大，速度在s
 
 ## 2023年11月20日commit
 
+初始化了netModule中的BackBone和Neck，更新了一些config中的参数，调整了原有的netLayer中de
+
 ### BackBone forward函数变量名称
 
 ![image-20231112122531128](./assets/image-20231112122531128.png)

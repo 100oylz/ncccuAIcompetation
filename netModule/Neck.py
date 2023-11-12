@@ -2,8 +2,7 @@ from netLayer.ConvModule import ConvModule
 from netLayer.CSPLayer_2Conv import CSPLayer_2Conv
 import torch
 import torch.nn as nn
-from Backbone import Backbone
-import torch.nn.functional as F
+
 from config import neck_upsample_mode, yolov8_d, yolov8_r, yolov8_w
 
 
