@@ -106,7 +106,7 @@ def random_add_all_noises(image_list: List[np.ndarray], csv_list: List[pd.DataFr
             print(type(img))
         else:
             print(img.shape)
-            cv2.imwrite(img_file_path, img.transpose((1, 2, 0)))
+            cv2.imwrite(img_file_path, img)
             csv.to_csv(csv_file_path)
     return img_list_new, csv_list_new
 
