@@ -20,31 +20,6 @@ def load_id_list(filepath: str) -> List[str]:
     return id_list
 
 
-def load_image(filepath: str) -> np.ndarray:
-    """
-    读取图像数据
-    :param filepath: 图像文件的路径
-    :type filepath: str
-    :return: 形状为[channels,height,weight]的矩阵
-    :rtype: np.ndarray
-    """
-    img_data = cv2.imread(filepath)
-    img_data = cv2.cvtColor(img_data, cv2.COLOR_BGR2RGB)
-    return img_data
-
-
-def load_csv(filepath: str) -> pd.DataFrame:
-    """
-    读取csv文件数据
-    :param filepath:csv文件的路径
-    :type filepath: str
-    :return: csv文件的数据
-    :rtype: pd.DataFrane
-    """
-    csv_data = pd.read_csv(filepath)
-    return csv_data
-
-
 def load_all(filepath: str) -> Tuple[List[np.ndarray], List[pd.DataFrame]]:
     """
     读取文件夹下全部数据
@@ -57,16 +32,22 @@ def load_all(filepath: str) -> Tuple[List[np.ndarray], List[pd.DataFrame]]:
     img_list = []
     csv_list = []
     for fileid in id_list:
-        image_path = os.path.join(config.DIRPATh, config.IMAGEFORMAT.format(fileid))
-        csv_path = os.path.join(config.DIRPATh, config.CSVFORMAT.format(fileid))
+        image_path = os.path.join(config.DIRPATH, config.IMAGEFORMAT.format(fileid))
+        csv_path = os.path.join(config.DIRPATH, config.CSVFORMAT.format(fileid))
 
-        csv = load_csv(csv_path)
-        img = load_image(image_path)
+        # Using OpenCV to read images
+        img_data = cv2.imread(image_path)
+        img_data = cv2.cvtColor(img_data, cv2.COLOR_BGR2RGB)
+        if (len(img_data.shape) != 3):
+            print(fileid)
+        img_list.append(img_data)
 
-        img_list.append(img)
-        csv_list.append(csv)
+        # Using Pandas to read CSV
+        csv_data = pd.read_csv(csv_path)
+        csv_list.append(csv_data)
+
     return img_list, csv_list
 
 
 if __name__ == '__main__':
-    load_all(config.DIRPATh)
+    load_all(config.DIRPATH)

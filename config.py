@@ -1,5 +1,6 @@
 # 文件夹路径
-DIRPATh = r"D:\dataset\objectDetectionyolo\train"
+DIRPATH = r"D:\dataset\objectDetectionyolo\train"
+NOISEDIRPATH=r"D:\dataset\objectDetectionyolo\noise"
 # Format字符串
 CSVFORMAT = "{}.csv"
 IMAGEFORMAT = "{}.jpg"
@@ -33,3 +34,10 @@ yolov8_r = 2.0
 """
 # Neck中UpSample的方法
 neck_upsample_mode = 'nearest'
+
+# 加噪函数中的默认参数的配置
+gaussian_noise_strength = 25
+salt_prob = 0.01
+pepper_prob = 0.01
+uniform_noise_strength = 25
+impulse_prob = 0.01

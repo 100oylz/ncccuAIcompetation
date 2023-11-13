@@ -1,3 +1,7 @@
+import sys
+
+sys.path.append("../")
+
 from netLayer.ConvModule import ConvModule
 from netLayer.CSPLayer_2Conv import CSPLayer_2Conv
 import torch
