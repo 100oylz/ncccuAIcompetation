@@ -16,6 +16,7 @@ def load_id_list(filepath: str) -> List[str]:
     :rtype: List[str]
     """
     files = tuple(os.walk(filepath))
+    # print(files)
     id_list = list(set([filepath.split('.')[0] for filepath in files[0][2]]))
     return id_list
 

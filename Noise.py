@@ -100,9 +100,14 @@ def random_add_all_noises(image_list: List[np.ndarray], csv_list: List[pd.DataFr
         fileid = csv['filename'].values[0]
         img_file_path = os.path.join(config.NOISEDIRPATH, config.IMAGEFORMAT.format(fileid))
         csv_file_path = os.path.join(config.NOISEDIRPATH, config.CSVFORMAT.format(fileid))
-
-        cv2.imwrite(img_file_path, img.transpose((1, 2, 0)))
-        csv.to_csv(csv_file_path)
+        if (len(img.shape) != 3):
+            print(fileid)
+            print(img.shape)
+            print(type(img))
+        else:
+            print(img.shape)
+            cv2.imwrite(img_file_path, img.transpose((1, 2, 0)))
+            csv.to_csv(csv_file_path)
     return img_list_new, csv_list_new
 
 

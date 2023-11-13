@@ -1,8 +1,10 @@
+import sys
+
 import warnings
 
 import torch.nn as nn
 
-from ConvModule import ConvModule
+from netLayer.ConvModule import ConvModule
 
 
 class DaeknetBottleneck(nn.Module):

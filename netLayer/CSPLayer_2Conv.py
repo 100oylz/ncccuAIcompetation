@@ -1,5 +1,6 @@
-from ConvModule import ConvModule
-from DarknetBottleneck import DaeknetBottleneck
+import sys
+from netLayer.ConvModule import ConvModule
+from netLayer.DarknetBottleneck import DaeknetBottleneck
 import torch.nn as nn
 import torch
 import warnings
