@@ -25,7 +25,8 @@ class ConvModule(nn.Module):
             nn.Conv2d(in_channels=in_channel, out_channels=out_channel, kernel_size=kernel_size, stride=stride,
                       padding=padding),
             nn.BatchNorm2d(num_features=out_channel),
-            nn.SiLU(inplace=True)
+            # nn.SiLU()
+            nn.ReLU()
         )
 
     def forward(self, x):

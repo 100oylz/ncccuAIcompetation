@@ -32,6 +32,9 @@ class CSPLayer_2Conv(nn.Module):
 
     def forward(self, x):
         y = list(self.conv_1(x).split((self.hidden_channel, self.hidden_channel), 1))
-        y.extend(darknet(y[-1]) for darknet in self.darknetlist)
+        # y.extend(darknet(y[-1]) for darknet in self.darknetlist)
+        for darknet in self.darknetlist:
+            darkout=darknet(y[-1])
+            y.append(darkout)
         out = self.conv_2(torch.cat(y, dim=1))
         return out

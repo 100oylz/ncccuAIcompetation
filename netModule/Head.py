@@ -33,11 +33,17 @@ class Head(nn.Module):
         self.csp_num = int(round(3 * yolov8_d))
 
     def createLayer(self):
-        self.convmodule_1 = ConvModule(in_channel=self.channel_256_w, out_channel=self.channel_256_w, kernel_size=3,
+        self.convmodule_1_1 = ConvModule(in_channel=self.channel_256_w, out_channel=self.channel_256_w, kernel_size=3,
                                        stride=1, padding=1)
-        self.convmodule_2 = ConvModule(in_channel=self.channel_512_w, out_channel=self.channel_512_w, kernel_size=3,
+        self.convmodule_2_1 = ConvModule(in_channel=self.channel_512_w, out_channel=self.channel_512_w, kernel_size=3,
                                        stride=1, padding=1)
-        self.convmodule_3 = ConvModule(in_channel=self.channel_512_w_r, out_channel=self.channel_512_w_r, kernel_size=3,
+        self.convmodule_3_1 = ConvModule(in_channel=self.channel_512_w_r, out_channel=self.channel_512_w_r, kernel_size=3,
+                                       stride=1, padding=1)
+        self.convmodule_1_2 = ConvModule(in_channel=self.channel_256_w, out_channel=self.channel_256_w, kernel_size=3,
+                                       stride=1, padding=1)
+        self.convmodule_2_2 = ConvModule(in_channel=self.channel_512_w, out_channel=self.channel_512_w, kernel_size=3,
+                                       stride=1, padding=1)
+        self.convmodule_3_2 = ConvModule(in_channel=self.channel_512_w_r, out_channel=self.channel_512_w_r, kernel_size=3,
                                        stride=1, padding=1)
 
         self.conv1 = nn.Conv2d(kernel_size=1, stride=1, padding=0, in_channels=self.channel_256_w,
@@ -54,16 +60,19 @@ class Head(nn.Module):
                                out_channels=self.num_class)
 
     def forward(self, x1, x2, x3):
-        out1 = self.convmodule_1(x1)
-        BLS1 = self.conv1(out1)
-        CLS1 = self.conv2(out1)
+        out1_1 = self.convmodule_1_1(x1)
+        BLS1 = self.conv1(out1_1)
+        out1_2=self.convmodule_1_2(x1) 
+        CLS1 = self.conv2(out1_2)
 
-        out2 = self.convmodule_2(x2)
-        BLS2 = self.conv3(out2)
-        CLS2 = self.conv4(out2)
+        out2_1 = self.convmodule_2_1(x2)
+        BLS2 = self.conv3(out2_1)
+        out2_2=self.convmodule_2_2(x2)
+        CLS2 = self.conv4(out2_2)
 
-        out3 = self.convmodule_3(x3)
-        BLS3 = self.conv5(out3)
-        CLS3 = self.conv6(out3)
+        out3_1 = self.convmodule_3_1(x3)
+        BLS3 = self.conv5(out3_1)
+        out3_2=self.convmodule_3_2(x3)
+        CLS3 = self.conv6(out3_2)
 
         return BLS1, CLS1, BLS2, CLS2, BLS3, CLS3

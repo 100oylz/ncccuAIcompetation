@@ -49,6 +49,8 @@ def load_all(filepath: str) -> Tuple[List[np.ndarray], List[pd.DataFrame]]:
 
     return img_list, csv_list
 
+def calculateIOU():
+    pass
 
 if __name__ == '__main__':
     load_all(config.DIRPATH)

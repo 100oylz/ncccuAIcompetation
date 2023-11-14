@@ -33,12 +33,18 @@ class SPPF(nn.Module):
             out_channel=out_channel,
             kernel_size=1, stride=1,
             padding=0)
-        self.maxpool2d = nn.MaxPool2d(kernel_size=5, stride=1, padding=kernel_size // 2)
+
+        self.maxpool2d1 = nn.MaxPool2d(
+            kernel_size=kernel_size, stride=1, padding=kernel_size // 2)
+        self.maxpool2d2 = nn.MaxPool2d(
+            kernel_size=kernel_size, stride=1, padding=kernel_size // 2)
+        self.maxpool2d3 = nn.MaxPool2d(
+            kernel_size=kernel_size, stride=1, padding=kernel_size // 2)
 
     def forward(self, x):
         x = self.conv_1(x)
-        y1 = self.maxpool2d(x)
-        y2 = self.maxpool2d(y1)
-        y3 = self.maxpool2d(y2)
+        y1 = self.maxpool2d1(x)
+        y2 = self.maxpool2d2(y1)
+        y3 = self.maxpool2d3(y2)
         out = self.conv_2(torch.cat((x, y1, y2, y3), 1))
         return out
