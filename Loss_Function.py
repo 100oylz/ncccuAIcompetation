@@ -1,6 +1,6 @@
 import torch
 import torch.nn.functional as F
-
+import math
 def compute_iou(box1, box2):
     '''
     :param box1: 预测框BLS
@@ -48,8 +48,9 @@ def compute_ciou_loss(box1, box2, alpha=1.0, v=0.5, stride=None):
     box1_height = box1[..., 3] - box1[..., 1]
     box2_width = box2[..., 2] - box2[..., 0]
     box2_height = box2[..., 3] - box2[..., 1]
-    v_union = (4 / (3.14 ** 2)) * torch.pow(torch.atan(box2_width / box2_height) - torch.atan(box1_width / box1_height),
+    v_union = (4 / (math.pi ** 2)) * torch.pow(torch.atan(box2_width / box2_height) - torch.atan(box1_width / box1_height),
                                             2)
+    print(v_union)
     alpha_angle = v_union / (1 - iou + v_union)
 
     ciou_loss = 1 - iou + alpha_angle * alpha - center_distance * v

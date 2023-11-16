@@ -21,7 +21,7 @@ def load_id_list(filepath: str) -> List[str]:
     return id_list
 
 
-def load_all(filepath: str) -> Tuple[List[np.ndarray], List[pd.DataFrame]]:
+def load_all(filepath: str,split:int=None) -> Tuple[List[np.ndarray], List[pd.DataFrame]]:
     """
     读取文件夹下全部数据
     :param filepath:文件夹路径
@@ -32,6 +32,8 @@ def load_all(filepath: str) -> Tuple[List[np.ndarray], List[pd.DataFrame]]:
     id_list = load_id_list(filepath)
     img_list = []
     csv_list = []
+    if(split!=None):
+        id_list=id_list[:split]
     for fileid in id_list:
         image_path = os.path.join(config.DIRPATH, config.IMAGEFORMAT.format(fileid))
         csv_path = os.path.join(config.DIRPATH, config.CSVFORMAT.format(fileid))
@@ -49,8 +51,6 @@ def load_all(filepath: str) -> Tuple[List[np.ndarray], List[pd.DataFrame]]:
 
     return img_list, csv_list
 
-def calculateIOU():
-    pass
 
 if __name__ == '__main__':
     load_all(config.DIRPATH)
