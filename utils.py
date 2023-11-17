@@ -77,11 +77,19 @@ def transform_image_to_tensor(img_list: List[np.ndarray]) -> (List[torch.Tensor]
     return img_tensors, origin_shape_list
 
 
+def transform_csv_to_label(csv: pd.DataFrame) -> Tuple[int, float, float, float, float]:
+    width = csv['width'].values
+    height = csv['height'].values
+    xmin = (csv['xmin'].values / width)[0]
+    ymin = (csv['ymin'].values / height)[0]
+    xmax = (csv['xmin'].values / width)[0]
+    ymax = (csv['ymin'].values / height)[0]
+    cls = config.classe[csv['class'].values[0]]
+    return (cls, xmin, ymin, xmax, ymax)
+
+
 if __name__ == '__main__':
-    img_list, csv_list = load_all(config.DIRPATH)
-    class_set = set()
+    img_list, csv_list = load_all(config.DIRPATH, split=1)
     for csv in csv_list:
-        for cls in csv['class']:
-            class_set.add(cls)
-    print(class_set)
-    print(len(class_set))
+        label = transform_csv_to_label(csv)
+        print(label)
