@@ -68,24 +68,30 @@ def transform_image_to_tensor(img_list: List[np.ndarray]) -> (List[torch.Tensor]
         transforms.Resize((640, 640)),
         transforms.Normalize(mean=[0.5, 0.5, 0.5], std=[0.5, 0.5, 0.5])
     ])
-    img_tensors, origin_shape_list = [], []
+    img_tensors = []
     for img in img_list:
         assert type(img) == np.ndarray, f"{type(img)} != numpy.ndarray"
-        origin_shape_list.append(img.shape)
         img_tensor = transform(img)
         img_tensors.append(img_tensor)
-    return img_tensors, origin_shape_list
+    return img_tensors
 
 
 def transform_csv_to_label(csv: pd.DataFrame) -> Tuple[int, float, float, float, float]:
     width = csv['width'].values
     height = csv['height'].values
-    xmin = (csv['xmin'].values / width)[0]
-    ymin = (csv['ymin'].values / height)[0]
-    xmax = (csv['xmin'].values / width)[0]
-    ymax = (csv['ymin'].values / height)[0]
+    xmin = (csv['xmin'].values)[0]
+    ymin = (csv['ymin'].values)[0]
+    xmax = (csv['xmax'].values)[0]
+    ymax = (csv['ymax'].values)[0]
     cls = config.classe[csv['class'].values[0]]
-    return (cls, xmin, ymin, xmax, ymax)
+    x_center = (xmin + xmax) / width
+    y_center = (ymin + ymax) / height
+    width = (xmax - xmin) / width
+    height = (ymax - ymin) / height
+    '''
+    (CLS,X_center/width,Y_center/height,(xmax-xmin)/width,(ymax-ymin)/height)
+    '''
+    return (cls, x_center, y_center, width, height)
 
 
 if __name__ == '__main__':
