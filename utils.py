@@ -78,4 +78,10 @@ def transform_image_to_tensor(img_list: List[np.ndarray]) -> (List[torch.Tensor]
 
 
 if __name__ == '__main__':
-    load_all(config.DIRPATH)
+    img_list, csv_list = load_all(config.DIRPATH)
+    class_set = set()
+    for csv in csv_list:
+        for cls in csv['class']:
+            class_set.add(cls)
+    print(class_set)
+    print(len(class_set))
