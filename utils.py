@@ -20,7 +20,7 @@ def load_id_list(filepath: str) -> List[str]:
     """
     files = tuple(os.walk(filepath))
     # print(files)
-    id_list = list(set([filepath.split('.')[0] for filepath in files[0][2]]))
+    id_list = list(sorted(list(set([filepath.split('.')[0] for filepath in files[0][2]]))))
     return id_list
 
 
@@ -55,35 +55,24 @@ def load_all(filepath: str, split: int = None) -> Tuple[List[np.ndarray], List[p
     return img_list, csv_list
 
 
-def transform_image_to_tensor(img_list: List[np.ndarray]) -> (List[torch.Tensor], List[Tuple[int]]):
-    """
-    将图像转化为transform后的tensor，并且返回tensor列表和原始图像大小
-    :param img_list: 图片列表
-    :type img_list: List[np.ndarray]
-    :return: 图像transform后的列表，图像原本的shape列表
-    :rtype: (List[torch.Tensor], List[Tuple[int]])
-    """
+def transform_image_to_tensor(image: np.ndarray):
     transform = transforms.Compose([
         transforms.ToTensor(),
         transforms.Resize((640, 640)),
         transforms.Normalize(mean=[0.5, 0.5, 0.5], std=[0.5, 0.5, 0.5])
     ])
-    img_tensors = []
-    for img in img_list:
-        assert type(img) == np.ndarray, f"{type(img)} != numpy.ndarray"
-        img_tensor = transform(img)
-        img_tensors.append(img_tensor)
-    return img_tensors
+    img_tensor = transform(image)
+    return img_tensor
 
 
 def transform_csv_to_label(csv: pd.DataFrame) -> Tuple[int, float, float, float, float]:
     width = csv['width'].values
     height = csv['height'].values
-    xmin = (csv['xmin'].values)[0]
-    ymin = (csv['ymin'].values)[0]
-    xmax = (csv['xmax'].values)[0]
-    ymax = (csv['ymax'].values)[0]
-    cls = config.classe[csv['class'].values[0]]
+    xmin = (csv['xmin'].values)
+    ymin = (csv['ymin'].values)
+    xmax = (csv['xmax'].values)
+    ymax = (csv['ymax'].values)
+    cls = np.array([config.classes[value] for value in csv['class'].values])
     x_center = (xmin + xmax) / width
     y_center = (ymin + ymax) / height
     width = (xmax - xmin) / width
@@ -95,7 +84,7 @@ def transform_csv_to_label(csv: pd.DataFrame) -> Tuple[int, float, float, float,
 
 
 if __name__ == '__main__':
-    img_list, csv_list = load_all(config.DIRPATH, split=1)
+    img_list, csv_list = load_all(config.DIRPATH)
     for csv in csv_list:
         label = transform_csv_to_label(csv)
         print(label)
