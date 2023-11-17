@@ -73,8 +73,8 @@ def transform_csv_to_label(csv: pd.DataFrame) -> Tuple[int, float, float, float,
     xmax = (csv['xmax'].values)
     ymax = (csv['ymax'].values)
     cls = np.array([config.classes[value] for value in csv['class'].values])
-    x_center = (xmin + xmax) / width
-    y_center = (ymin + ymax) / height
+    x_center = (xmin + xmax) / width / 2
+    y_center = (ymin + ymax) / height / 2
     width = (xmax - xmin) / width
     height = (ymax - ymin) / height
     '''
