@@ -8,6 +8,7 @@ import config
 from typing import List, Tuple
 import numpy as np
 from torchvision import transforms
+import yaml
 
 
 def load_id_list(filepath: str) -> List[str]:
@@ -84,7 +85,15 @@ def transform_csv_to_label(csv: pd.DataFrame) -> Tuple[int, float, float, float,
 
 
 if __name__ == '__main__':
-    img_list, csv_list = load_all(config.DIRPATH)
-    for csv in csv_list:
-        label = transform_csv_to_label(csv)
-        print(label)
+    # 请确保你已经安装了PyYAML库，可以使用以下命令安装：
+    # pip install pyyaml
+
+    # 替换 'dataset/train_data.yaml' 为你的YAML文件路径
+    yaml_file_path = 'dataset/train_data.yaml'
+
+    # 使用PyYAML加载YAML文件
+    with open(yaml_file_path, 'r', encoding='utf-8') as file:
+        data = yaml.load(file, Loader=yaml.FullLoader)
+
+    # 打印加载的数据
+    print(data['names'])
