@@ -15,7 +15,7 @@ uniform_noise_strength = 25
 impulse_prob = 0.01
 
 BASEPATH = 'dataset'
-IMAGEPATH = 'image'
-LABELPATH = 'label'
+IMAGEPATH = 'images'
+LABELPATH = 'labels'
 TRAINPATH = 'train'
 VALPATH = 'val'

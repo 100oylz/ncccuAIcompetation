@@ -34,6 +34,7 @@ def generate_train_val_img_csv(path: str):
 
 def generate(id_list, image_path, label_path):
     for id in id_list:
+        print(id)
         imagepath = os.path.join(config.DIRPATH, config.IMAGEFORMAT.format(id))
         csvpath = os.path.join(config.DIRPATH, config.CSVFORMAT.format(id))
 
@@ -47,17 +48,6 @@ def generate(id_list, image_path, label_path):
         with open(os.path.join(label_path, f'{id}.txt'), 'w') as f:
             for c, x, y, w, h in zip(cls, x_center, y_center, width, height):
                 f.write(f'{c} {x} {y} {w} {h}\n')
-
-
-def generateDataSet():
-    img_list, csv_list = load_all(config.DIRPATH, split=16)
-    img_tensor, label_list = [], []
-    img_tensor.extend(transform_image_to_tensor(img_list))
-    for img, csv in zip(img_list, csv_list):
-        label_list.append(tuple(transform_csv_to_label(csv)))
-
-    print(img_tensor)
-    print(label_list)
 
 
 if __name__ == '__main__':
