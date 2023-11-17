@@ -1,10 +1,10 @@
 # 文件夹路径
 DIRPATH = r"D:\dataset\objectDetectionyolo\train"
-NOISEDIRPATH=r"D:\dataset\objectDetectionyolo\noise"
+NOISEDIRPATH = r"D:\dataset\objectDetectionyolo\noise"
 # Format字符串
 CSVFORMAT = "{}.csv"
 IMAGEFORMAT = "{}.jpg"
-
+yolo_model_version = 'm'
 # yolov8的网络参数
 """
 Model | D (Deepen Factor) | W (Widen Factor) | R (Ratio)
