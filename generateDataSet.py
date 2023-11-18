@@ -14,7 +14,7 @@ def generate_train_val_img_csv(path: str):
     def cat_path(*path):
         return os.path.abspath(os.path.join('./', *path))
 
-    id_list = load_id_list(config.DIRPATH)
+    id_list = load_id_list(path)
     # 区分训练集和验证集
     train_id_list, val_id_list = train_test_split(id_list, test_size=0.2, train_size=0.8, shuffle=True, random_state=1)
     print(len(train_id_list), len(val_id_list))
