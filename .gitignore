@@ -1,4 +1,4 @@
-*.pt
+preTrainedModel/*
 *.bat
 .vscode
 dataset/*
